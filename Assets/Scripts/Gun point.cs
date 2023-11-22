@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gunpoint : MonoBehaviour
@@ -17,8 +18,15 @@ public class Gunpoint : MonoBehaviour
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x,mousePosition.y - transform.position.y);
 
         transform.right = direction;
+
+        if (Input.GetMouseButtonDown(0))
+            Shoot(direction);
+
         
-        
-        
+    }
+
+    void Shoot(Vector2 mousePosition)
+    {
+
     }
 }
