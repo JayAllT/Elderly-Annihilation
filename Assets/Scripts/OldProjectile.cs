@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OldProjectile : MonoBehaviour
 {
-    public float direction = 2 * Mathf.PI / 3;  // radians
+    public float direction = 0;  // radians
     float speed = 1f;
     Rigidbody2D rb;
 

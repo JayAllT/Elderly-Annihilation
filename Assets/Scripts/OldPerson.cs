@@ -1,15 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class OldPerson : MonoBehaviour
 {
     public int dir = 0;  // 0 = right, 1 = down, 2 = left, 3 = up
-    Vector2 velocity = Vector2.zero;
+    float speed = 3;
+    Vector2 projectileVelocity = Vector2.zero;
     Rigidbody2D rb;
     int attackWaitTime = 1;
-    float attackChance = 0.5f;
+    float attackChance = 1f;
+    public OldProjectile projectilePrefab;
+    public GameObject player;
+    float basicAngle;  // used for player location
+    float trueAngle;
+    float xDistance;
+    float yDistance;
+    OldProjectile projectile;
     
     void Start()
     {
@@ -41,14 +50,38 @@ public class OldPerson : MonoBehaviour
                 break;
         }
 
-
+        // apply speed
+        rb.velocity *= speed;
     }
 
     void Attack()
     {
-        Debug.Log("attack");
+        // create projectile and get angle from the old person to the player
+        projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        projectile.direction = GetBulletRotation();
+    }
 
+    // radians
+    float GetBulletRotation()  // locates player in order to get velocity of projectile pointing in player's direction
+    {
+        xDistance = player.transform.position.x - transform.position.x;
+        yDistance = player.transform.position.y - transform.position.y;
 
+        basicAngle = Mathf.Atan(Mathf.Abs(yDistance / xDistance));
+
+        if (xDistance > 0 && yDistance > 0)  // top right
+            trueAngle = basicAngle;
+
+        else if (xDistance < 0 && yDistance > 0)  // top left
+            trueAngle = Mathf.PI - basicAngle;
+
+        else if (xDistance < 0 && yDistance < 0)  // bottom left
+            trueAngle = Mathf.PI + basicAngle;
+
+        else if (xDistance > 0 && yDistance < 0)  // bottom right
+            trueAngle = 2 * Mathf.PI - basicAngle;
+
+        return trueAngle;
     }
 
     IEnumerator Movement()
