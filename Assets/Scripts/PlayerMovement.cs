@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         float verticalMovement = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
         float horizontalMovement = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
 
-        if (canWalk = true)
+        if (canWalk)
         {
             player.transform.Translate(new Vector3(horizontalMovement, verticalMovement, 0));
         }
