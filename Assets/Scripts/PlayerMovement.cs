@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canRoll;
     public float rollTime;
-    public float canWalk;
+    public bool canWalk;
 
 
     void Start()
@@ -40,9 +40,9 @@ public class PlayerMovement : MonoBehaviour
             var mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
 
-            canWalk = false; 
+            canWalk = false;
 
-            player.transform.Translate(direction)
+            player.transform.Translate(direction);
         }
 
 
