@@ -5,7 +5,7 @@ using UnityEngine;
 public class OldProjectile : MonoBehaviour
 {
     public float direction = 0;  // radians
-    float speed = 1f;
+    float speed = 10f;
     Rigidbody2D rb;
 
     void Start()
@@ -14,11 +14,8 @@ public class OldProjectile : MonoBehaviour
 
         rb.velocity = new Vector2(Mathf.Cos(direction) * speed, Mathf.Sin(direction) * speed);
         transform.rotation = Quaternion.Euler(0, 0, direction * (180 / Mathf.PI));
-    }
 
-    
-    void Update()
-    {
-        
+        // projectile will destroy itself after 5 seconds if it does not hit player
+        Destroy(gameObject, 5);
     }
 }
