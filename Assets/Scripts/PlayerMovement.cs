@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canWalk;
 
     public float rollSpeed;
+    public float rollDistance;
+
+    public Vector2 rollStartPosition;
 
 
     void Start()
@@ -53,10 +56,11 @@ public class PlayerMovement : MonoBehaviour
 
         var mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        rollStartPosition = transform.position;
 
         rb.velocity = direction * rollSpeed;
 
-        yield return new WaitForSeconds(rollTime);
+        yield return new WaitUntil(() => Vector2.Distance(rollStartPosition, transform.position) >= rollDistance);
 
         rb.velocity = Vector2.zero;
         canRoll = true;
