@@ -25,8 +25,8 @@ public class OldPerson : MonoBehaviour
     float returnTime = 1;  // how long elderly person spends travelling back to player after it has wandered off outisde of active vicinity
     float speed = 3;
     Rigidbody2D rb;
-    int attackWaitTime = 1;
-    float attackChance = 1f;
+    float attackWaitTimeMin = 0.75f;
+    float attackWaitTimeMax = 2f;
     public OldProjectile projectilePrefab;
     public GameObject player;
     float basicAngle;  // used for player location
@@ -174,11 +174,9 @@ public class OldPerson : MonoBehaviour
 
     IEnumerator AttackWait()  // have a random chance of old person attacking
     {
-        yield return new WaitForSeconds(attackWaitTime);
-
-        if (Random.value < attackChance)
-            Attack();
-
+        yield return new WaitForSeconds(Random.Range(attackWaitTimeMin, attackWaitTimeMax));
+        
+        Attack();
         StartCoroutine(AttackWait());
     }
 }
