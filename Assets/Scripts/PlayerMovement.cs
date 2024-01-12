@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //Variables
+        canWalk = true;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
 
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         }
         //Roll Mechanic
 
-        if (Input.GetMouseButtonDown(1) && canRoll)
+        if (Input.GetKeyDown(KeyCode.R) && canRoll)
         {
             StartCoroutine(Roll());
 
